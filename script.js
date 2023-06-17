@@ -2,6 +2,7 @@
 const taskList = document.getElementById('lista-tarefas');
 const btnCriarTarefa = document. getElementById('criar-tarefa');
 const inputTarefa = document.getElementById('texto-tarefa');
+const btnApagaListaTarefas = document.getElementById('apaga-tudo');
 
 //Lista de funções
 function selectLi(event) {
@@ -34,5 +35,15 @@ function createTask () {
     inputTarefa.value = '';
 }
 
+function clearTaskList () {
+    const elements = taskList.children;
+    for (let i = elements.length -1; i >= 0; i -= 1) {
+        let elementToRemove = elements[i];
+        elementToRemove.parentNode.removeChild(elementToRemove);
+    }
+    console.log(elements)
+}
+
 //Lista de eventos
 btnCriarTarefa.addEventListener('click', createTask);
+btnApagaListaTarefas.addEventListener('click', clearTaskList);
