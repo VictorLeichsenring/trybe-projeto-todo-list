@@ -5,6 +5,12 @@ const inputTarefa = document.getElementById('texto-tarefa');
 
 //Lista de funções
 function selectLi(event) {
+    const selected = document.getElementsByClassName('selected');
+    for (let i = 0; i < selected.length; i += 1) {
+        const item = selected[i];
+        const classes = item.classList;
+        classes.remove('selected');
+    }
     event.target.classList.add('selected');
 }
 
