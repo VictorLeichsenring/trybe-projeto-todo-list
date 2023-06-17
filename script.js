@@ -14,12 +14,23 @@ function selectLi(event) {
     event.target.classList.add('selected');
 }
 
+function taskCompleted(event) {
+    const element = event.target;
+    const classes = element.classList;
+    if (classes.contains('completed')) {
+        element.classList.remove('completed');
+    } else {
+        element.classList.add('completed');
+    }
+}
+
 function createTask () {
     const element = document.createElement('li');
     const task = inputTarefa.value;
     element.innerText = task;
     taskList.appendChild(element);
     element.addEventListener('click', selectLi)
+    element.addEventListener('dblclick', taskCompleted);
     inputTarefa.value = '';
 }
 
