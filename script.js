@@ -3,6 +3,7 @@ const taskList = document.getElementById('lista-tarefas');
 const btnCriarTarefa = document. getElementById('criar-tarefa');
 const inputTarefa = document.getElementById('texto-tarefa');
 const btnApagaListaTarefas = document.getElementById('apaga-tudo');
+const btnRemoverFinalizados = document.getElementById('remover-finalizados');
 
 //Lista de funções
 function selectLi(event) {
@@ -39,11 +40,19 @@ function clearTaskList () {
     const elements = taskList.children;
     for (let i = elements.length -1; i >= 0; i -= 1) {
         let elementToRemove = elements[i];
-        elementToRemove.parentNode.removeChild(elementToRemove);
+        elementToRemove.parentElement.removeChild(elementToRemove);
     }
-    console.log(elements)
+}
+
+function removeCompletedTask(){
+    const elements = document.getElementsByClassName('completed');
+    for (let i = elements.length-1; i >= 0; i -= 1) {
+        let elementToRemove = elements[i];
+        elementToRemove.parentElement.removeChild(elementToRemove);
+    }
 }
 
 //Lista de eventos
 btnCriarTarefa.addEventListener('click', createTask);
 btnApagaListaTarefas.addEventListener('click', clearTaskList);
+btnRemoverFinalizados.addEventListener('click', removeCompletedTask);
