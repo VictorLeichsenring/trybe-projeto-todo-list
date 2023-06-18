@@ -5,6 +5,8 @@ const inputTarefa = document.getElementById('texto-tarefa');
 const btnApagaListaTarefas = document.getElementById('apaga-tudo');
 const btnRemoverFinalizados = document.getElementById('remover-finalizados');
 const btnSalvarTarefas = document.getElementById('salvar-tarefas');
+const btnMoverCima = document.getElementById('mover-cima');
+const btnMoverBaixo = document.getElementById('mover-baixo');
 
 //Lista de funções
 function selectLi(event) {
@@ -66,8 +68,6 @@ function storage() {
     }
     localStorage.setItem('tasks', JSON.stringify(listTasks));
 }
-  
-  
 
 function recovery() {
     const listTasks = JSON.parse(localStorage.getItem('tasks'));
@@ -83,22 +83,57 @@ function recovery() {
             newTask.classList.add('selected');
         }
         taskList.appendChild(newTask);
-        newTask.addEventListener('click', selectLi)
+        newTask.addEventListener('click', selectLi);
         newTask.addEventListener('dblclick', taskCompleted);
       }
     }
-  }
+}
+
+function moveUp(){
+    let taskSelectedIndex = -1;
+    const taskListChildren = taskList.children;
+    for (let i = 0; i < taskListChildren.length; i += 1) {
+        const element = taskListChildren[i];
+        const classes = element.classList;
+        if (classes.contains('selected')) {
+            taskSelectedIndex = i;
+        }
+    }
+    
+    if (taskSelectedIndex > 0) {
+        const taskSelected = taskListChildren[taskSelectedIndex];
+        const taskAbove = taskListChildren[taskSelectedIndex - 1];
+        taskList.insertBefore(taskSelected, taskAbove);
+    }
+}
+
+function moveDown() {
+    const taskListChildren = taskList.children;
+    let taskSelectedIndex = taskListChildren.length;
+    for (let i = 0; i < taskListChildren.length; i += 1) {
+      const element = taskListChildren[i];
+      const classes = element.classList; 
+      if (classes.contains('selected')) {
+        taskSelectedIndex = i;
+      }
+    }
+    if (taskSelectedIndex < taskListChildren.length - 1) {
+      const taskSelected = taskListChildren[taskSelectedIndex];
+      const nextTask = taskListChildren[taskSelectedIndex + 1];
+      taskList.insertBefore(nextTask, taskSelected);
+    }
+}
+  
  
-
-   
-
 //Lista de eventos
 btnCriarTarefa.addEventListener('click', createTask);
 btnApagaListaTarefas.addEventListener('click', clearTaskList);
 btnRemoverFinalizados.addEventListener('click', removeCompletedTask);
 btnSalvarTarefas.addEventListener('click', storage);
+btnMoverCima.addEventListener('click', moveUp);
+btnMoverBaixo.addEventListener('click', moveDown);
 
 //Recuperar dados do localStorage
 window.onload = function() {
     recovery();
-  };
+};
