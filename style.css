@@ -1,7 +1,8 @@
 .selected {
-    background-color: grey;
+  background-color: grey;
 }
 
 .completed {
-    text-decoration:line-through solid black;
+  text-decoration: line-through solid black;
 }
+
